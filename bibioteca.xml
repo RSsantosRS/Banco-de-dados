@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Tempo de geração: 09/04/2025 às 01:51
+- Versão do servidor: 8.0.40
+- Versão do PHP: 8.2.12
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="bibioteca" collation="utf8mb4_0900_ai_ci" charset="utf8mb4">
+            <pma:table name="autores">
+                CREATE TABLE `autores` (
+                  `id_autor` int NOT NULL AUTO_INCREMENT,
+                  `nome_autor` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                  PRIMARY KEY (`id_autor`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="categorias">
+                CREATE TABLE `categorias` (
+                  `id_categoria` int NOT NULL AUTO_INCREMENT,
+                  `nome_categoria` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                  PRIMARY KEY (`id_categoria`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="emprestimo">
+                CREATE TABLE `emprestimo` (
+                  `id_imprestimo` int NOT NULL AUTO_INCREMENT,
+                  `id_livro` int NOT NULL,
+                  `id_usuario` int NOT NULL,
+                  `data_emprestimo` date NOT NULL,
+                  `data_devolucao` date NOT NULL,
+                  PRIMARY KEY (`id_imprestimo`),
+                  KEY `id_livro` (`id_livro`),
+                  KEY `id_usuario` (`id_usuario`),
+                  CONSTRAINT `emprestimo_ibfk_1` FOREIGN KEY (`id_livro`) REFERENCES `livros` (`id_livro`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+                  CONSTRAINT `emprestimo_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`usuario_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="livros">
+                CREATE TABLE `livros` (
+                  `id_livro` int NOT NULL AUTO_INCREMENT,
+                  `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                  `id_autor` int NOT NULL,
+                  `id_categor` int NOT NULL,
+                  `ISBN` varchar(200) NOT NULL,
+                  `ano_publicacao` int NOT NULL,
+                  PRIMARY KEY (`id_livro`),
+                  UNIQUE KEY `ISBN` (`ISBN`(20)),
+                  KEY `id_autor` (`id_autor`),
+                  KEY `id_categor` (`id_categor`),
+                  CONSTRAINT `livros_ibfk_1` FOREIGN KEY (`id_autor`) REFERENCES `autores` (`id_autor`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+                  CONSTRAINT `livros_ibfk_2` FOREIGN KEY (`id_categor`) REFERENCES `categorias` (`id_categoria`) ON DELETE RESTRICT ON UPDATE RESTRICT
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="usuarios">
+                CREATE TABLE `usuarios` (
+                  `usuario_id` int NOT NULL AUTO_INCREMENT,
+                  `nome_usuario` varchar(100) NOT NULL,
+                  `endereco` varchar(200) NOT NULL,
+                  `telefone` varchar(20) NOT NULL,
+                  PRIMARY KEY (`usuario_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Banco de dados: 'bibioteca'
+    -->
+    <database name="bibioteca">
+        <!-- Tabela autores -->
+        <!-- Tabela categorias -->
+        <!-- Tabela emprestimo -->
+        <!-- Tabela livros -->
+        <!-- Tabela usuarios -->
+    </database>
+</pma_xml_export>

@@ -1,0 +1,5 @@
+"id_autor","nome_autor"
+"id_categoria","nome_categoria"
+"id_imprestimo","id_livro","id_usuario","data_emprestimo","data_devolucao"
+"id_livro","titulo","id_autor","id_categor","ISBN","ano_publicacao"
+"usuario_id","nome_usuario","endereco","telefone"
